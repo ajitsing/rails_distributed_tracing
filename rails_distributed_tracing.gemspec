@@ -6,7 +6,7 @@ require_relative './lib/rails_distributed_tracing/version.rb'
 Gem::Specification.new do |s|
   s.name                        =   'rails_distributed_tracing'
   s.version                     =   DistributedTracing::VERSION
-  s.summary                     =   'Microservices distributed tracing'
+  s.summary                     =   "Microservices distributed tracing\nThe gem generates a request id which can be added as a tag in rails logs.\nChild services will reuse this tag with the help of this gem."
   s.authors                     =   ['Ajit Singh']
   s.email                       =   'jeetsingh.ajit@gamil.com'
   s.license                     =   'MIT'
