@@ -14,7 +14,7 @@ describe DistributedTracing do
       request = double('request')
       request_id = '00bfc934-b429-4606-b0c8-318ffa82e884'
 
-      expect(request).to receive(:headers).and_return({'Request-ID' => request_id})
+      expect(request).to receive(:headers).and_return({DistributedTracing::REQUEST_HEADER_KEY => request_id})
 
       expect(DistributedTracing.request_id_tag.call(request)).to eq(request_id)
     end
@@ -25,7 +25,7 @@ describe DistributedTracing do
       request = double('request')
       request_id = '00bfc934-b429-4606-b0c8-318ffa82e884'
 
-      expect(request).to receive(:headers).and_return({'Request-ID' => request_id})
+      expect(request).to receive(:headers).and_return({DistributedTracing::REQUEST_HEADER_KEY => request_id})
 
       DistributedTracing.request_id_tag.call(request)
 
@@ -38,11 +38,11 @@ describe DistributedTracing do
       request = double('request')
       request_id = '00bfc934-b429-4606-b0c8-318ffa82e884'
 
-      expect(request).to receive(:headers).and_return({'Request-ID' => request_id})
+      expect(request).to receive(:headers).and_return({DistributedTracing::REQUEST_HEADER_KEY => request_id})
 
       DistributedTracing.request_id_tag.call(request)
 
-      expect(DistributedTracing.request_id_header).to eq({'Request-ID' => request_id})
+      expect(DistributedTracing.request_id_header).to eq({DistributedTracing::REQUEST_HEADER_KEY => request_id})
     end
   end
 end
