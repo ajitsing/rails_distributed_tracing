@@ -1,6 +1,12 @@
 # rails_distributed_tracing
 Distributed tracing for rails microservices
 
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://opensource.org/licenses/MIT)
+[![Gem Version](https://badge.fury.io/rb/rails_distributed_tracing.svg)](https://badge.fury.io/rb/rails_distributed_tracing)
+![Gem Downloads](http://ruby-gem-downloads-badge.herokuapp.com/rails_distributed_tracing?type=total)
+[![Build Status](https://travis-ci.org/ajitsing/rails_distributed_tracing.svg?branch=master)](https://travis-ci.org/ajitsing/rails_distributed_tracing)
+[![Twitter Follow](https://img.shields.io/twitter/follow/Ajit5ingh.svg?style=social)](https://twitter.com/Ajit5ingh)
+
 ## Installation
 Add this line to all your microservices:
 ```ruby
