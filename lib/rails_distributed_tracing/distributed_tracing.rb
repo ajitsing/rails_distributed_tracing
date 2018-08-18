@@ -1,7 +1,7 @@
 require_relative './request_id_store'
 
 module DistributedTracing
-  REQUEST_HEADER_KEY = 'Request-ID'
+  REQUEST_HEADER_KEY = 'Request-ID'.freeze
 
   def self.request_id_tag
     lambda do |request|
