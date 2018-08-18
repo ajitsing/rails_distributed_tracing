@@ -7,7 +7,7 @@ load 'lib/rails_distributed_tracing.rb'
 
 describe DistributedTracing::FaradayMiddleware do
   it 'should add trace id header to request headers' do
-    DistributedTracing::RequestIDStore.request_id = '00bfc934-b429-4606-b0c8-318ffa82e884'
+    DistributedTracing::TraceIdStore.request_id = '00bfc934-b429-4606-b0c8-318ffa82e884'
     middleware = DistributedTracing::FaradayMiddleware.new
     middleware.app = double(:app)
 

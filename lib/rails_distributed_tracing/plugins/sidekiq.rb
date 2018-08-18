@@ -2,13 +2,13 @@ module DistributedTracing
   module SidekiqMiddleware
     class Client
       def call(worker_class, job, queue, redis_pool)
-        job[DistributedTracing::REQUEST_HEADER_KEY] = trace_id
+        job[DistributedTracing::TRACE_ID] = trace_id
         yield
       end
 
       private
       def trace_id
-        DistributedTracing.current_request_id || SecureRandom.uuid
+        DistributedTracing.trace_id || SecureRandom.uuid
       end
     end
 
@@ -17,7 +17,7 @@ module DistributedTracing
         logger = worker.logger
 
         if logger.respond_to?(:tagged)
-          logger.tagged(job[DistributedTracing::REQUEST_HEADER_KEY]) {yield}
+          logger.tagged(job[DistributedTracing::TRACE_ID]) {yield}
         else
           yield
         end

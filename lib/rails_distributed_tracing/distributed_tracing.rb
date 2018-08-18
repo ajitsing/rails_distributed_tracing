@@ -1,20 +1,20 @@
-require_relative './request_id_store'
+require 'rails_distributed_tracing/trace_id_store'
 
 module DistributedTracing
-  REQUEST_HEADER_KEY = 'Request-ID'.freeze
+  TRACE_ID = 'Request-ID'.freeze
 
-  def self.request_id_tag
+  def self.log_tag
     lambda do |request|
-      request_id = request.headers[REQUEST_HEADER_KEY] || request.request_id
-      RequestIDStore.request_id = request_id
+      request_id = request.headers[TRACE_ID] || request.request_id
+      TraceIdStore.request_id = request_id
     end
   end
 
   def self.request_id_header
-    {REQUEST_HEADER_KEY => RequestIDStore.request_id}
+    {TRACE_ID => TraceIdStore.trace_id}
   end
 
-  def self.current_request_id
-    RequestIDStore.request_id
+  def self.trace_id
+    TraceIdStore.trace_id
   end
 end
