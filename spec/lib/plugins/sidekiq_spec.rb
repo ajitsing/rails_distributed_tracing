@@ -34,7 +34,10 @@ describe DistributedTracing::SidekiqMiddleware do
       job = {DistributedTracing::TRACE_ID => trace_id}
 
       expect(worker).to receive(:logger).and_return(logger)
-      expect(logger).to receive(:tagged).with(trace_id)
+
+      expect(DistributedTracing).to receive(:trace_id=).with(trace_id).ordered
+      expect(logger).to receive(:tagged).with(trace_id).ordered
+      expect(DistributedTracing).to receive(:trace_id=).with(nil).ordered
 
       middleware.call(worker, job, nil) {}
     end

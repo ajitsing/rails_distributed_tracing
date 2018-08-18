@@ -17,7 +17,9 @@ module DistributedTracing
         logger = worker.logger
 
         if logger.respond_to?(:tagged)
-          logger.tagged(job[DistributedTracing::TRACE_ID]) {yield}
+          DistributedTracing.trace_id = job[DistributedTracing::TRACE_ID]
+          logger.tagged(DistributedTracing.trace_id) {yield}
+          DistributedTracing.trace_id= nil
         else
           yield
         end
