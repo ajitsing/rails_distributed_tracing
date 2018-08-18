@@ -11,7 +11,7 @@ describe DistributedTracing::FaradayMiddleware do
     middleware = DistributedTracing::FaradayMiddleware.new
     middleware.app = double(:app)
 
-    expect(middleware.app).to receive(:call).with({request_headers: DistributedTracing.request_id_header})
+    expect(middleware.app).to receive(:call).with({request_headers: {DistributedTracing::TRACE_ID => DistributedTracing.trace_id}})
 
     middleware.call({request_headers: {}})
   end

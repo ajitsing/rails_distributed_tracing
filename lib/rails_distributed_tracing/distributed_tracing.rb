@@ -10,11 +10,11 @@ module DistributedTracing
     end
   end
 
-  def self.request_id_header
-    {TRACE_ID => TraceIdStore.trace_id}
-  end
-
   def self.trace_id
     TraceIdStore.trace_id
+  end
+
+  def self.trace_id=(id)
+    TraceIdStore.trace_id = id
   end
 end

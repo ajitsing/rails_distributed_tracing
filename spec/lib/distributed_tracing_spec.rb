@@ -32,17 +32,4 @@ describe DistributedTracing do
       expect(DistributedTracing.trace_id).to eq(request_id)
     end
   end
-
-  describe '#request_id_header' do
-    it 'should return request id in a header' do
-      request = double('request')
-      request_id = '00bfc934-b429-4606-b0c8-318ffa82e884'
-
-      expect(request).to receive(:headers).and_return({DistributedTracing::TRACE_ID => request_id})
-
-      DistributedTracing.log_tag.call(request)
-
-      expect(DistributedTracing.request_id_header).to eq({DistributedTracing::TRACE_ID => request_id})
-    end
-  end
 end

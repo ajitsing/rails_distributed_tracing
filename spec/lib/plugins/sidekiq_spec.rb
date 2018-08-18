@@ -11,7 +11,7 @@ describe DistributedTracing::SidekiqMiddleware do
       job = {}
       middleware.call(nil, job, nil, nil) {}
 
-      expect(job).to eq(DistributedTracing.request_id_header)
+      expect(job).to eq({DistributedTracing::TRACE_ID => DistributedTracing.trace_id})
     end
 
     it 'should add random trace id parameter to job when request id is not present' do
