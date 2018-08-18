@@ -8,7 +8,7 @@ Distributed tracing for rails microservices
 [![Twitter Follow](https://img.shields.io/twitter/follow/Ajit5ingh.svg?style=social)](https://twitter.com/Ajit5ingh)
 
 ## Installation
-Add this line to all your microservices:
+Add this line to Gemfile of your microservice:
 ```ruby
 gem 'rails_distributed_tracing'
 ```
