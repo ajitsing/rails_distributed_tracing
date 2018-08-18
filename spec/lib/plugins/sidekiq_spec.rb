@@ -5,7 +5,7 @@ load 'lib/rails_distributed_tracing.rb'
 describe DistributedTracing::SidekiqMiddleware do
   describe DistributedTracing::SidekiqMiddleware::Client do
     it 'should add trace id parameter to job' do
-      DistributedTracing::TraceIdStore.request_id = '00bfc934-b429-4606-b0c8-318ffa82e884'
+      DistributedTracing::TraceIdStore.trace_id = '00bfc934-b429-4606-b0c8-318ffa82e884'
       middleware = DistributedTracing::SidekiqMiddleware::Client.new
 
       job = {}

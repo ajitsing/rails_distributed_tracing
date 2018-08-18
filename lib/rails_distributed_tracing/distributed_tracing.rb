@@ -6,7 +6,7 @@ module DistributedTracing
   def self.log_tag
     lambda do |request|
       request_id = request.headers[TRACE_ID] || request.request_id
-      TraceIdStore.request_id = request_id
+      TraceIdStore.trace_id = request_id
     end
   end
 

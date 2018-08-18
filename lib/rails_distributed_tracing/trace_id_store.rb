@@ -1,6 +1,6 @@
 module DistributedTracing
   class TraceIdStore
-    def self.request_id=(id)
+    def self.trace_id=(id)
       @trace_id = id
     end
 
