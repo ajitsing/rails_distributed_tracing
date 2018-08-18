@@ -21,7 +21,7 @@ If the service is origin service, `DistributedTracing.request_id_tag` will creat
 require 'rails_distributed_tracing'
 
 class Application < Rails::Application
-  config.log_tags = [DistributedTracing.request_id_tag]
+  config.log_tags = [DistributedTracing.log_tag]
 end
 ```
 
@@ -41,20 +41,41 @@ source service should always pass the request id to the destination service.
 When a request id is generated `rails_distributed_tracing` holds that request id till the request returns the response. You can access that request_id anywhere in your application code with the help of below APIs.
 
 ```ruby
-DistributedTracing.current_request_id
+DistributedTracing.trace_id
+#=> '8ed7e37b-94e8-4875-afb4-6b4cf1783817'
 ```
 
-or you can directly get it as a request header
-
+## Sidekiq
 ```ruby
-DistributedTracing.request_id_header
-#=> {'Request-ID' => '8ed7e37b-94e8-4875-afb4-6b4cf1783817'}
+Sidekiq.configure_server do |config|
+  config.server_middleware do |chain|
+    chain.add DistributedTracing::SidekiqMiddleware::Server
+  end
+end
+
+Sidekiq.configure_client do |config|
+  config.client_middleware do |chain|
+    chain.add DistributedTracing::SidekiqMiddleware::Client
+  end
+end
 ```
 
-The gem will automatically pick the `Request-ID` header from your request and use it as log tag.
+## Faraday
+```ruby
+connection = Faraday.new("http://google.com/") do |conn|
+  conn.use DistributedTracing::FaradayMiddleware
+end
+```
 
-Note: Make sure that you always pass the current request id and not the stale one.
+Make sure that faraday and sidekiq gems are loaded before `rails_distributed_tracing`. Otherwise rails_distributed_tracing will not load the faraday and sidekiq related classes.   
 
+To ensure that `sidekiq` and `faraday` are loaded before `rails_distributed_tracing`, add sidekiq and faraday gem before rails_distributed_tracing in Gemfile. So that when rails load the Gemfile, sidekiq and faraday loaded before rails_distributed_tracing gem.
+
+## Other
+Add below headers to the outgoing request headers.
+```ruby
+{DistributedTracing::TRACE_ID => DistributedTracing.trace_id}
+```
 
 ## Contributing
 
