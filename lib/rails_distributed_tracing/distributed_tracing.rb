@@ -1,7 +1,7 @@
 require 'rails_distributed_tracing/trace_id_store'
 
 module DistributedTracing
-  TRACE_ID = 'Request-ID'.freeze
+  TRACE_ID = 'X-Request-Id'.freeze
 
   def self.log_tag
     lambda do |request|
