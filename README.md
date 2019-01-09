@@ -69,6 +69,7 @@ connection = Faraday.new("http://google.com/") do |conn|
 end
 ```
 
+## Important Note
 Make sure that faraday and sidekiq gems are loaded before `rails_distributed_tracing`. Otherwise rails_distributed_tracing will not load the faraday and sidekiq related classes.   
 
 To ensure that `sidekiq` and `faraday` are loaded before `rails_distributed_tracing`, add sidekiq and faraday gem before rails_distributed_tracing in Gemfile. So that when rails load the Gemfile, sidekiq and faraday loaded before rails_distributed_tracing gem.
